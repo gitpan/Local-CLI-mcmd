@@ -7,10 +7,10 @@ package Local::CLI::mcmd;
 
 =head1 VERSION
 
-This documentation describes version 0.01
+This documentation describes version 0.02
 
 =cut
-use version;      our $VERSION = qv( 0.01 );
+use version;      our $VERSION = qv( 0.02 );
 
 use warnings;
 use strict;
@@ -21,7 +21,7 @@ use IO::Select;
 use Pod::Usage;
 use Getopt::Long qw( :config no_ignore_case pass_through );
 
-use Range::String;
+use Local::Range;
 use Multiplex::CMD;
 use Util::AsyncIO::RW;
 use Util::Getopt::Menu;
@@ -97,7 +97,7 @@ sub main
         verbose => $option{v} ? $option{v} > 1 ? *STDERR : *STDOUT : 0,
     );
 
-    my $target = Range::String->new( $option{r} )->list();
+    my $target = Local::Range->new( $option{r} )->list();
 
     YAML::XS::DumpFile \*STDOUT, _run( \%config, \%run, $target ) if @$target;
 
@@ -144,7 +144,7 @@ sub _run
         my $target = $tally{$key};
         my $count = scalar @$target;
     
-        $tally{$key} = "( $count ) " . Range::String->serial( $target );
+        $tally{$key} = "( $count ) " . Local::Range->serial( $target );
     }
 
     return $result, \%tally;

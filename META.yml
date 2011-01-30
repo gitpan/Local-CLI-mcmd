@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:                Local-CLI-mcmd
-version:             v0.01
+version:             v0.02
 abstract:            CLI for Multiplex::CMD
 license:             perl
 author:              
